@@ -62,8 +62,12 @@ Section path_functor.
     intros [? ?].
     destruct F, G; simpl in *.
     path_induction; simpl.
-    f_ap; abstract (apply center; exact _).
+    f_ap;
+      eapply @center; abstract exact _.
   Defined.
+
+  (** FIXME: [abstract] should be opaque *)
+  Global Opaque path_functor'_sig_subproof0 path_functor'_sig_subproof.
 
   Lemma path_functor'_sig_fst F G HO HM
   : ap object_of (@path_functor'_sig F G (HO; HM)) = HO.
@@ -76,7 +80,6 @@ Section path_functor.
   : @path_functor'_sig F F (idpath; idpath) = idpath.
   Proof.
     destruct F; simpl in *.
-    unfold path_functor'_sig_subproof0, path_functor'_sig_subproof.
     rewrite !(contr idpath).
     reflexivity.
   Qed.
