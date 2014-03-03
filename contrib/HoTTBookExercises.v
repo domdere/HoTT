@@ -401,6 +401,9 @@ Section Book_3_14.
       intros x' y'.
       etransitivity; [ apply symmetry; apply (p x x y' x') | ].
       assert (H' : idpath = allpath_hprop x x) by apply allpath_hprop.
+      (** FIXME we didn't need to do this before *)
+      generalize dependent (allpath_hprop x x).
+      intros ? H'.
       destruct H'.
       reflexivity.
     - destruct (LEM (P nna) _) as [pnna|npnna]; trivial.
